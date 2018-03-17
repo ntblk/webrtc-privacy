@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WebRTC Privacy / Leak Checker</title>
+  <script src="rtc-api.js"></script>
+</head>
+<body>
+<script>
+getLocalIPs(function(ips) {
+  document.body.textContent = 'Local IP addresses:\n ' + ips.join('\n ');
+});
+</script>
+
+</body>
+</html>
