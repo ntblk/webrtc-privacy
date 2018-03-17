@@ -7,9 +7,26 @@
 </head>
 <body>
 <script>
-getLocalIPs(function(ips) {
-  document.body.textContent = 'Local IP addresses:\n ' + ips.join('\n ');
-});
+
+function check() {
+  getLocalIPs(function(ips) {
+    document.body.textContent = 'Local IP addresses:\n ' + ips.join('\n ');
+  });
+}
+
+var constraints = {audio: true};
+
+navigator.mediaDevices.getUserMedia(constraints)
+.then(function(stream) {
+  console.log('got stream');
+})
+.catch(function(err) {
+  console.log(err);
+})
+.then(function() {
+  check();
+})
+
 </script>
 
 </body>
