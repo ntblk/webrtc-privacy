@@ -24,7 +24,11 @@ function getLocalIPs(callback) {
         if (ips.indexOf(ip) == -1) // avoid duplicate entries (tcp/udp)
             ips.push(ip);
     };
-    pc.createOffer(function(sdp) {
-        pc.setLocalDescription(sdp);
-    }, function onerror() {});
+
+    pc.createOffer().then(function(offer) {
+      return pc.setLocalDescription(offer);
+    })
+    .catch(function(reason) {
+      console.log(reason);
+    });
 }
