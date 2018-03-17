@@ -1,33 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>WebRTC Privacy / Leak Checker</title>
-  <script src="rtc-api.js"></script>
+    <meta charset="UTF-8">
+    <title>WebRTC Privacy / Leak Checker</title>
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script src="rtc-api.js"></script>
 </head>
+
 <body>
-<script>
+    <script>
 
-function check() {
-  getLocalIPs(function(ips) {
-    document.body.textContent = 'Local IP addresses:\n ' + ips.join('\n ');
-  });
-}
+        function check() {
+            getLocalIPs(function(ips) {
+                document.body.textContent = 'Local IP addresses:\n ' + ips.join('\n ');
+            });
+        }
 
-var constraints = {audio: true};
+        var constraints = {audio: true};
 
-navigator.mediaDevices.getUserMedia(constraints)
-.then(function(stream) {
-  console.log('got stream');
-})
-.catch(function(err) {
-  console.log(err);
-})
-.then(function() {
-  check();
-})
+        navigator.mediaDevices.getUserMedia(constraints)
+        .then(function(stream) {
+            console.log('got user permission');
+        })
+        .catch(function(err) {
+            console.log(err);
+        })
+        .then(function() {
+            check();
+        })
 
-</script>
+    </script>
 
 </body>
 </html>
