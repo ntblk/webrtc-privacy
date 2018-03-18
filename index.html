@@ -5,25 +5,36 @@
     <title>WebRTC Privacy / Leak Checker</title>
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
     <script src="rtc-api.js"></script>
+
+    <style>
+        #user-media-status { color: red; }
+    </style>
+
 </head>
 
 <body>
+
+    <div id="user-media-status"></div>
+    <br>
+    <div id="ip-address"></div>
+
     <script>
 
         function check() {
             getLocalIPs(function(ips) {
-                document.body.textContent = 'Local IP addresses:\n ' + ips.join('\n ');
+                ips = ips.join('\n');
+                document.getElementById("ip-address").innerHTML = "Local IP addresses detected by WebRTC:\n " + ips;
             });
         }
 
-        var constraints = {audio: true};
+        let constraints = {audio: true};
 
         navigator.mediaDevices.getUserMedia(constraints)
         .then(function(stream) {
-            console.log('got user permission');
+            document.getElementById("user-media-status").innerHTML  = 'Got user permission for mic. \n';
         })
         .catch(function(err) {
-            console.log(err);
+            document.getElementById("user-media-status").innerHTML  = 'Did NOT get user permission for mic. \n';
         })
         .then(function() {
             check();
