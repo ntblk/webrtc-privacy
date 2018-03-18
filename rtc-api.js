@@ -49,6 +49,7 @@ function getLocalIPs(callback) {
 
 /* https://github.com/muaz-khan/DetectRTC/blob/master/DetectRTC.js#L839:53 */
 function detectRTC() {
+    console.log("Trying to detect RTC")
     var isWebRTCSupported = false;
     ['RTCPeerConnection',
         'webkitRTCPeerConnection',
@@ -66,8 +67,10 @@ function detectRTC() {
         pc.createDataChannel('');
         pc.close();
     } catch (err) {
+        console.log("Looks like we're on Edge")
         isWebRTCSupported = false;
     }
+
     return new Promise((resolve, reject) => {
         if (isWebRTCSupported) {
             resolve(isWebRTCSupported);
