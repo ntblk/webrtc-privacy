@@ -1,12 +1,8 @@
 # webrtc-privacy
 
-> a study of WebRTC privacy measures and IP leaks in current browser implementations
+WebRTC can be used to detect your private IP address [without any consent](https://security.stackexchange.com/questions/94783/why-is-my-internal-ip-address-private-visible-from-the-internet). 
 
-## About
-
-WebRTC can be used to [detect your private IP address without any consent](https://security.stackexchange.com/questions/94783/why-is-my-internal-ip-address-private-visible-from-the-internet). 
-
-In some browsers, however, [private IP addresses are only exposed if camera and/or microphone access has been granted](https://bugs.webkit.org/show_bug.cgi?id=176157#c5), which gives the user agency over their privacy, [but might complicate some use cases of WebRTC](https://bugs.webkit.org/show_bug.cgi?id=174500).
+In some browsers, however, private IP addresses are only exposed if camera and/or microphone [access has been granted](https://bugs.webkit.org/show_bug.cgi?id=176157#c5), which gives the user agency over their privacy, but might [complicate](https://bugs.webkit.org/show_bug.cgi?id=174500) some use cases of WebRTC.
 
 Demo website is [here](https://ntblk.github.io/webrtc-privacy/). The website asks for permission to access microphone. On Safari, we see that if this permission is denied then the **page does not get** host IP addresses. However, on Firefox and Chrome, user permission does not matter - the page JavaScript can access your private IP address anyway.
 
