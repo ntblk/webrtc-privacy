@@ -13,17 +13,14 @@ function getLocalIPs(callback) {
         // Candidate found!
         pc.onicecandidate = function(e) {
 
-            console.log("candidate found: ")
-            console.log(e)
-
             if (!e.candidate) { // Candidate gathering completed.
                 pc.close();
                 resolve(ips);
                 return;
             }
 
-            var ip = e.candidate.ip;
-            // var ip = /^candidate:.+ (\S+) \d+ typ/.exec(e.candidate.candidate)[1];
+            var ip = /^candidate:.+ (\S+) \d+ typ/.exec(e.candidate.candidate)[1];
+            console.log(e.candidate)
             if (ips.indexOf(ip) == -1) // avoid duplicate entries (tcp/udp)
                 ips.push(ip);
         };
@@ -32,7 +29,8 @@ function getLocalIPs(callback) {
 
 
         // Enable candidate gathering
-        pc.createDataChannel('testing', {});
+
+        pc.createDataChannel('');
 
         console.log("before createoffer")
 
@@ -61,6 +59,15 @@ function detectRTC() {
             isWebRTCSupported = true;
         }
     });
+
+    // Make sure datachannel create works
+    try {
+        var pc = new RTCPeerConnection();
+        pc.createDataChannel('');
+        pc.close();
+    } catch (err) {
+        isWebRTCSupported = false;
+    }
     return new Promise((resolve, reject) => {
         if (isWebRTCSupported) {
             resolve(isWebRTCSupported);
