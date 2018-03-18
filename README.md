@@ -4,6 +4,8 @@
 
 ## About
 
+We examine how `getUserMedia()` permission is used or ignored by browser vendors.
+
 This module implements prospective privacy tests for WebRTC IP handling.
 
 ## See also
