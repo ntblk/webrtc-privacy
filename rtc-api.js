@@ -6,6 +6,8 @@ function getLocalIPs(callback) {
 
     var pc = new RTCPeerConnection();
 
+    console.log("before Promise")
+
     return new Promise((resolve, reject) => {
 
         // Candidate found!
@@ -26,8 +28,14 @@ function getLocalIPs(callback) {
                 ips.push(ip);
         };
 
+        console.log("before createDataChannel")
+
+
         // Enable candidate gathering
         pc.createDataChannel('');
+
+        console.log("before createoffer")
+
 
         pc.createOffer()
             .then(offer => {
