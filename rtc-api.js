@@ -61,6 +61,9 @@ function detectRTC() {
             isWebRTCSupported = true;
         }
     });
+    // Check for createDataChannel
+    var pc = new RTCPeerConnection();
+    if (!pc.createDataChannel) isWebRTCSupported = false;
     return new Promise((resolve, reject) => {
         if (isWebRTCSupported) {
             resolve(isWebRTCSupported);
