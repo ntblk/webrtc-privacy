@@ -1,5 +1,7 @@
 function getLocalIPs(callback) {
 
+    console.log("In getLocalIPs")
+
     var ips = [];
 
     var pc = new RTCPeerConnection();
@@ -8,6 +10,10 @@ function getLocalIPs(callback) {
 
         // Candidate found!
         pc.onicecandidate = function(e) {
+
+            console.log("candidate found: ")
+            console.log(e)
+
             if (!e.candidate) { // Candidate gathering completed.
                 pc.close();
                 resolve(ips);
@@ -40,7 +46,6 @@ function detectRTC() {
         'RTCIceGatherer'
     ].forEach(function(item) {
         if (item in window) {
-            console.log(item);
             isWebRTCSupported = true;
         }
     });

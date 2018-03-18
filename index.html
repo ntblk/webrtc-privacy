@@ -33,6 +33,7 @@
                 document.getElementById("rtc-supported-accept").innerHTML = 'WebRTC supported \n';
                 getLocalIPs()
                     .then(ips => {
+                        console.log(ips)
                         ips = ips.join('\n');
                         document.getElementById("ip-address").innerHTML = "Local IP addresses detected by WebRTC:\n " + ips;
                     });
