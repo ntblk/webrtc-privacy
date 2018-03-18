@@ -1,46 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>WebRTC Privacy / Leak Checker</title>
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
     <script src="rtc-api.js"></script>
-
     <style>
-        #user-media-status { color: red; }
-    </style>
+    #user-media-status-reject,
+    #rtc-supported-reject {
+        color: red;
+    }
 
+    #user-media-status-accept,
+    #rtc-supported-accept {
+        color: green;
+    }
+    </style>
 </head>
 
 <body>
-
-    <div id="user-media-status"></div>
+    <div id="user-media-status-reject"></div>
+    <div id="user-media-status-accept"></div>
+    <div id="rtc-supported-reject"></div>
+    <div id="rtc-supported-accept"></div>
     <br>
     <div id="ip-address"></div>
-
     <script>
-
-        function check() {
-            getLocalIPs(function(ips) {
-                ips = ips.join('\n');
-                document.getElementById("ip-address").innerHTML = "Local IP addresses detected by WebRTC:\n " + ips;
+    function check() {
+        detectRTC()
+            .then(_ => {
+                document.getElementById("rtc-supported-accept").innerHTML = 'WebRTC supported \n';
+                getLocalIPs()
+                    .then(ips => {
+                        ips = ips.join('\n');
+                        document.getElementById("ip-address").innerHTML = "Local IP addresses detected by WebRTC:\n " + ips;
+                    });
+            })
+            .catch(_ => {
+                document.getElementById("rtc-supported-rejected").innerHTML = 'WebRTC not supported \n';
             });
-        }
 
-        let constraints = {audio: true};
+    }
 
-        navigator.mediaDevices.getUserMedia(constraints)
+    let constraints = { audio: true };
+
+    navigator.mediaDevices.getUserMedia(constraints)
         .then(function(stream) {
-            document.getElementById("user-media-status").innerHTML  = 'Got user permission for mic. \n';
+            document.getElementById("user-media-status-accept").innerHTML = 'Got user permission for mic. \n';
         })
         .catch(function(err) {
-            document.getElementById("user-media-status").innerHTML  = 'Did NOT get user permission for mic. \n';
+            document.getElementById("user-media-status-reject").innerHTML = 'Did NOT get user permission for mic. \n';
         })
         .then(function() {
             check();
         })
-
     </script>
-
 </body>
+
 </html>
