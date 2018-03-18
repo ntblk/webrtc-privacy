@@ -23,7 +23,7 @@ function getLocalIPs(callback) {
         pc.createDataChannel('');
 
         pc.createOffer()
-            .then(function(offer) {
+            .then(offer => {
                 return pc.setLocalDescription(offer);
             })
             .catch(reason => reject(reason));
@@ -39,11 +39,8 @@ function detectRTC() {
         'mozRTCPeerConnection',
         'RTCIceGatherer'
     ].forEach(function(item) {
-        if (isWebRTCSupported) {
-            return;
-        }
-
         if (item in window) {
+            console.log(item);
             isWebRTCSupported = true;
         }
     });
