@@ -32,7 +32,7 @@ function getLocalIPs(callback) {
 
 
         // Enable candidate gathering
-        pc.createDataChannel('');
+        pc.createDataChannel('testing', {});
 
         console.log("before createoffer")
 
@@ -61,9 +61,6 @@ function detectRTC() {
             isWebRTCSupported = true;
         }
     });
-    // Check for createDataChannel
-    var pc = new RTCPeerConnection();
-    if (!pc.createDataChannel) isWebRTCSupported = false;
     return new Promise((resolve, reject) => {
         if (isWebRTCSupported) {
             resolve(isWebRTCSupported);
