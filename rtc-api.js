@@ -33,7 +33,10 @@ function getLocalIPs(callback) {
             .then(offer => {
                 return pc.setLocalDescription(offer);
             })
-            .catch(reason => reject(reason));
+            .catch(reason => {
+                console.log(reason);
+                reject(reason)
+            });
     });
 }
 
