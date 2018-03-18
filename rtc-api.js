@@ -19,6 +19,7 @@ function getLocalIPs(callback) {
                 resolve(ips);
                 return;
             }
+
             var ip = e.candidate.ip;
             // var ip = /^candidate:.+ (\S+) \d+ typ/.exec(e.candidate.candidate)[1];
             if (ips.indexOf(ip) == -1) // avoid duplicate entries (tcp/udp)

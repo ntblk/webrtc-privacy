@@ -36,7 +36,8 @@
                         console.log(ips)
                         ips = ips.join('\n');
                         document.getElementById("ip-address").innerHTML = "Local IP addresses detected by WebRTC:\n " + ips;
-                    });
+                    })
+                    .catch(rejection => document.getElementById("ip-address").innerHTML = "Something got messed up with WebRTC API: " + rejection);
             })
             .catch(_ => {
                 document.getElementById("rtc-supported-rejected").innerHTML = 'WebRTC not supported \n';
